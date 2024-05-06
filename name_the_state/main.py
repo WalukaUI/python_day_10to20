@@ -11,15 +11,13 @@ is_game_on = True
 datas = pandas.read_csv("./50_states.csv")
 states = datas["state"].to_list()
 correct_answers = []
-missing_states = []
+
 
 
 while is_game_on:
     answer_box = screen.textinput(f'State name {len(correct_answers)}/50', "Enter a state").title()
     if answer_box == "Exit":
-        for sta in states:
-            if sta not in correct_answers:
-                missing_states.append(sta)
+        missing_states = [state for state in states if state not in correct_answers]
         new_data = pandas.DataFrame(missing_states)
         new_data.to_csv("states to learn.csv")
         is_game_on = False
